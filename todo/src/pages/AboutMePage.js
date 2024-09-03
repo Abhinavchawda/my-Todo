@@ -4,7 +4,7 @@ import Footer from '../features/ui/Footer';
 
 function About() {
     return (
-        <div >
+        <div>
             <NavBar></NavBar>
             <div className="bg-slate-100 md:w-[60%] w-[80%] mx-auto mb-10 p-8 rounded-lg shadow-md">
                 <h1 className="text-2xl font-semibold mb-4">About Our Task Manager</h1>
