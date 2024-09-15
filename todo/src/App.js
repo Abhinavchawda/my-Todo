@@ -58,52 +58,6 @@ const router = createBrowserRouter([
     path: "/contact",
     element: <div><Protected><Contact></Contact></Protected></div>,
   },
-  // {
-  //   path: "/product-detail/:id",
-  //   element: <div><Protected><ProductDetailPage></ProductDetailPage></Protected></div>,
-  // },
-  // {
-  //   path: "/admin/product-detail/:id",
-  //   element:
-  //     <div>
-  //       <ProtectedAdmin>
-  //         <AdminProductDetailPage></AdminProductDetailPage>
-  //       </ProtectedAdmin>
-  //     </div>,
-  // },
-  // {
-  //   path: "/admin/product-form",
-  //   element:
-  //     <div>
-  //       <ProtectedAdmin>
-  //         <AdminProductFormPage></AdminProductFormPage>
-  //       </ProtectedAdmin>
-  //     </div>,
-  // },
-  // {
-  //   path: "/admin/product-form/edit/:id",
-  //   element:
-  //     <div>
-  //       <ProtectedAdmin>
-  //         <AdminProductFormPage></AdminProductFormPage>
-  //       </ProtectedAdmin>
-  //     </div>,
-  // },
-  // {
-  //   path: "/admin/orders",
-  //   element:
-  //     <ProtectedAdmin>
-  //       <AdminOrdersPage></AdminOrdersPage>
-  //     </ProtectedAdmin>
-  // },
-  // {
-  //   path: "/todos",
-  //   element: <div><Protected><NavBar></NavBar><Home></Home></Protected></div>,
-  // },
-  // {
-  //   path: "/order-sucess/:id",
-  //   element: <div><Protected><OrderSuccess></OrderSuccess></Protected></div>,
-  // },
   {
     path: "/profile",
     element: <div><UserProfilePage></UserProfilePage></div>,
