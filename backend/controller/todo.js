@@ -3,7 +3,7 @@ const { todo } = require("../models/todo")
 
 exports.fetchTodosByUser = async (req, res) => {
     const { id } = req.params
-    console.log("id : ", id)
+    // console.log("id : ", id)
     try {
         const todos = await todo.find({ user: id})
         res.status(200).json(todos);
@@ -15,7 +15,7 @@ exports.fetchTodosByUser = async (req, res) => {
 
 exports.fetchTodosByFilter = async (req, res) => {
     const { id } = req.params
-    console.log("id : ", id)
+    // console.log("id : ", id)
     let query = todo.find({ user: id}).sort( { priority: -1} )
     try {
         const todos = await query
@@ -28,7 +28,7 @@ exports.fetchTodosByFilter = async (req, res) => {
 
 exports.addTodo = async (req, res) => {
     const temp = new todo (req.body);
-    console.log("temp : ", req.body);
+    // console.log("temp : ", req.body);
     try {
         const doc = await temp.save();
         res.status(201).json(doc)
@@ -41,7 +41,7 @@ exports.addTodo = async (req, res) => {
 exports.updateTodo = async (req, res) => {
     const { id } = req.params;
     try {
-        console.log("id e : ", id)
+        // console.log("id e : ", id)
         const temp = await todo.findByIdAndUpdate(id, req.body, {new:true}).exec();
         console.log("temp : ", temp)
         res.status(200).json(temp)
@@ -54,7 +54,8 @@ exports.updateTodo = async (req, res) => {
 exports.deleteTodo = async (req, res) => {
     const { id } = req.params;
     try {
-        console.log("id : ", id)
+        // console.log("id : ", id)
+
         // const itemId = id;
         // const item = await Cart.findById(id).exec()
         // console.log("item : ", item)
