@@ -20,7 +20,7 @@ export default function Todo() {
     let req = await fetch("http://localhost:8080/todos/" + user?.id);
     let Todos = await req.json();
 
-    console.log("dos : ", Todos)
+    // console.log("dos : ", Todos)
     if (Todos)
       setTodoArray(Todos);
   }
@@ -115,18 +115,19 @@ export default function Todo() {
     let req = await fetch("http://localhost:8080/todos/sort/" + user?.id);
     let Todos = await req.json();
 
-    console.log("dos : ", Todos)
-    if (Todos)
+    // console.log("dos : ", Todos)
+    if (Todos) {
       setTodoArray(Todos);
+    }
   }
 
   const [showAdd, setShowAdd] = useState(false)
   return (
-    <div className=''>
+    <div>
       <div className='home flex flex-col justify-center items-center mb-12'>
         <div className='flex flex-col justify-center items-center mb-3 gap-1'>
-          <div className='text-lg font-semibold'>Sort Task by Priority</div>
-          <button className='bg-slate-200 text-gray-600 rounded-lg px-4 py-1 font-semibold'
+          <div className='text-xl font-semibold font-serif'>Sort Task by Priority</div>
+          <button className='bg-slate-200 text-gray-600 rounded-lg px-4 py-1 font-semibold hover:scale-105 transition-all duration-300'
             onClick={sortPriority}
           >
             Sort
@@ -134,7 +135,7 @@ export default function Todo() {
         </div>
 
         <div>
-          <button className='bg-green-500 text-white rounded-lg px-4 py-1 font-semibold mb-2'
+          <button className='bg-green-500 text-white rounded-lg px-4 py-1 font-semibold mb-2 hover:scale-105 transition-all duration-300'
           onClick={e=>{setShowAdd(true); setSaveFlag(true)}}
           >
             Add a new Task
@@ -184,13 +185,13 @@ export default function Todo() {
 
                 <div className='flex lg:flex-col justify-center items-center gap-2 p-3 mx-auto'>
                   <div>
-                    <PencilIcon className='h-5 w-5 hover:scale-125 cursor-pointer'
+                    <PencilIcon className='h-5 w-5 hover:scale-125 cursor-pointer transition-all duration-300'
                       type='button'
                       onClick={() => { !saveFlag && editTodoForm(item); setShowAdd(true) }}>
                     </PencilIcon>
                   </div>
                   <div>
-                    <TrashIcon className='h-5 w-5 hover:scale-125 cursor-pointer'
+                    <TrashIcon className='h-5 w-5 hover:scale-125 cursor-pointer transition-all duration-300'
                       type='button'
                       onClick={() => { deleteTodo(item.id) }} >
                     </TrashIcon>

@@ -7,26 +7,61 @@ function Contact() {
     return (
         <div>
             <NavBar></NavBar>
-            <div className="bg-slate-100 md:w-[60%] w-[80%] mx-auto mb-10 p-8 rounded-lg shadow-md">
-                <h1 className="text-2xl font-semibold mb-4">Contact Me</h1>
-                <p className="text-gray-700">
-                    Feel free to reach out if you have any questions, feedback, or suggestions!
+
+            <div className="rounded-xl bg-white p-6 sm:p-10 shadow-lg">
+                <h1 className="text-4xl font-bold mb-6 text-center text-indigo-600">Contact Us</h1>
+                <p className="text-gray-600 mb-6 text-center">
+                    We'd love to hear from you! Please fill out the form below and we'll get in touch with you as soon as possible.
                 </p>
-                <div className="mt-6">
-                    <p className="">Email : abhinavchawda23@gmail.com</p>
-                    <p className="">Phone : +91 9516510552</p>
-                </div>
-                <div className="mt-6">
-                    <p className="text-gray-700">Connect with me on social media:</p>
-                    <div className="flex flex-col">
-                        <Link to={'https://twitter.com/'} target="_blank" rel="noopener noreferrer">
-                            <i className="fab fa-twitter text-blue-500 hover:text-blue-700">Twitter</i>
-                        </Link>
-                        <Link to={'https://linkedin.com/in/Abhinav-Chawda'} target="_blank" rel="noopener noreferrer">
-                            <i className="fab fa-linkedin text-blue-500 hover:text-blue-700">Linked-in</i>
-                        </Link>
-                        {/* Add more social media icons as needed */}
+                <form className="max-w-lg mx-auto space-y-6">
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                            Name
+                        </label>
+                        <input
+                            className="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            id="name"
+                            type="text"
+                            placeholder="Your name"
+                        />
                     </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                            Email
+                        </label>
+                        <input
+                            className="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            id="email"
+                            type="email"
+                            placeholder="Your email"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="message">
+                            Message
+                        </label>
+                        <textarea
+                            className="shadow-sm appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            id="message"
+                            rows="5"
+                            placeholder="Your message"
+                        ></textarea>
+                    </div>
+                    <div className="text-center">
+                        <button
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            type="button"
+                        >
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+                <div className="mt-8 text-center">
+                    <p className="text-gray-600">
+                        Or reach us at: <br />
+                        <strong>Email:</strong> support@my-Todo.com <br />
+                        <strong>Phone:</strong> +1 (555) 123-4567
+                    </p>
                 </div>
             </div>
 

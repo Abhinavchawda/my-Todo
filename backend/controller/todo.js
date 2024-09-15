@@ -43,7 +43,7 @@ exports.updateTodo = async (req, res) => {
     try {
         // console.log("id e : ", id)
         const temp = await todo.findByIdAndUpdate(id, req.body, {new:true}).exec();
-        console.log("temp : ", temp)
+        // console.log("temp : ", temp)
         res.status(200).json(temp)
     }
     catch (err) {

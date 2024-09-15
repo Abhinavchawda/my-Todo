@@ -20,7 +20,7 @@ export default function CompletedTodo() {
     let req = await fetch("http://localhost:8080/todos/" + user?.id);
     let Todos = await req.json();
 
-    console.log("dos : ", Todos)
+    // console.log("dos : ", Todos)
     if (Todos)
       setTodoArray(Todos);
   }
@@ -161,13 +161,13 @@ export default function CompletedTodo() {
 
                   <div className='flex lg:flex-col justify-center items-center gap-2 p-3 mx-auto'>
                     <div>
-                      <PencilIcon className='h-5 w-5 hover:scale-125 cursor-pointer'
+                      <PencilIcon className='h-5 w-5 hover:scale-125 cursor-pointer transition-all duration-300'
                         type='button'
                         onClick={() => { !saveFlag && editTodoForm(item) }}>
                       </PencilIcon>
                     </div>
                     <div>
-                      <TrashIcon className='h-5 w-5 hover:scale-125 cursor-pointer'
+                      <TrashIcon className='h-5 w-5 hover:scale-125 cursor-pointer transition-all duration-300'
                         type='button'
                         onClick={() => { deleteTodo(item.id) }} >
                       </TrashIcon>

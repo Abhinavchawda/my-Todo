@@ -27,7 +27,7 @@ exports.loginUser = async (req, res) => {
             res.status(200).json({ id: user.id, name: user.name, email: user.email, addresses: user.addresses, role: user.role })
         }
         else {
-            console.log(user)
+            // console.log(user)
             res.status(400).json({"message" : "Login failed"})
         }
     }

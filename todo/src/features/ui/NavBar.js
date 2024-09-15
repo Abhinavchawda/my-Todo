@@ -82,7 +82,7 @@ export default function NavBar({ children }) {
                                                             )}
                                                             aria-current={item.current ? 'page' : undefined}
                                                         >
-                                                            {item.name === "Home" ? <HomeIcon className='h-6 w-6'></HomeIcon> : item.name}
+                                                            {item.name}
                                                         </Link>
                                                         ) : null
                                                 )}
