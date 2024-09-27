@@ -39,9 +39,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -53,7 +51,7 @@ export const userSlice = createSlice({
         state.userInfo.todos = action.payload;
         console.log("UserSlice payload : ", state.userInfo.todos)
       })
-      
+
       .addCase(updateUserAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -61,7 +59,7 @@ export const userSlice = createSlice({
         state.status = 'idle';
         state.userInfo = action.payload;
       })
-      
+
       .addCase(fetchLoggedInUserAsync.pending, (state) => {
         state.status = 'loading';
       })
@@ -69,10 +67,8 @@ export const userSlice = createSlice({
         state.status = 'idle';
         state.userInfo = action.payload;
       });
-    },
-  });
-  
-export const { increment } = userSlice.actions;
+  },
+});
 
 export const selectUserTodos = (state) => state.user.userInfo.todos;
 export const selectUserInfo = (state) => state.user.userInfo;

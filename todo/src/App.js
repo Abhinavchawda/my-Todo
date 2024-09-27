@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import Home from './pages/Home';
 import NavBar from './features/ui/NavBar';
-// import { Counter } from './features/counter/Counter';
 import { createBrowserRouter, RouterProvider, Route, Link, } from "react-router-dom";
 import LogOut from './features/auth/components/LogOut';
 import PageNotFound from './pages/404';
@@ -31,16 +30,9 @@ const router = createBrowserRouter([
         <Protected><NavBar></NavBar><UserTodosPage></UserTodosPage></Protected>,
       </div>
   },
-  // {
-  //   path: "/admin",
-  //   element:
-  //     <ProtectedAdmin>
-  //       <AdminHome></AdminHome>
-  //     </ProtectedAdmin>,
-  // },
   {
     path: "/login",
-    element: <div><LoginPage></LoginPage></div>,
+    element: <LoginPage></LoginPage>,
   },
   {
     path: "/signup",
@@ -52,27 +44,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/about",
-    element: <div><Protected><About></About></Protected></div>,
+    element: <Protected><About></About></Protected>,
   },
   {
     path: "/contact",
-    element: <div><Protected><Contact></Contact></Protected></div>,
+    element: <Protected><Contact></Contact></Protected>,
   },
   {
     path: "/profile",
-    element: <div><UserProfilePage></UserProfilePage></div>,
+    element: <UserProfilePage></UserProfilePage>,
   },
   {
     path: "/logout",
-    element: <div><LogOut></LogOut></div>,
+    element: <LogOut></LogOut>,
   },
-  // {
-  //   path: "/forgot-password",
-  //   element: <div><ForgotPasswordPage></ForgotPasswordPage></div>,
-  // },
   {
     path: "*",
-    element: <div><PageNotFound></PageNotFound></div>,
+    element: <PageNotFound></PageNotFound>,
   },
 ]);
 
@@ -83,7 +71,7 @@ function App() {
   // }, [])
   
   return (
-    <div className="App">
+    <div>
       <RouterProvider router={router} />
     </div>
   );

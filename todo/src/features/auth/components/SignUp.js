@@ -27,7 +27,7 @@ export default function SignUp() {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
           className="mx-auto h-24 w-auto"
-          src="/Shop-in-logo.png"
+          src="/my-Todo-logo.png"
           alt="my-Todo"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">

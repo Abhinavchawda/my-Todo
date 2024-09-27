@@ -1,9 +1,9 @@
-
 export function fetchTodosByuser(id) {
   return new Promise(async (resolve) => {
     const response = await fetch("http://localhost:8080/todos/" + id);
     const data = await response.json();
     resolve({ data })
+    console.log("this is from todoAPI fetch()", data)
   }
   );
 }
@@ -18,13 +18,16 @@ export function saveTodo(newTodo) {
       });
 
     const data = await response.json();
+    console.log("from todoAPI.js save() : ", data);
+    
     resolve({ data })
   }
   );
 }
+
 export function editTodo({ Todo, id }) {
   return new Promise(async (resolve) => {
-    console.log("edit : ", Todo);
+    console.log("from todoAPI edit() : ", Todo);
     const response = await fetch("http://localhost:8080/todos/" + id,
       {
         method: "PATCH",
@@ -49,5 +52,3 @@ export function deleteTodo(id) {
   }
   );
 }
-
-

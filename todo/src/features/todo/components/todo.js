@@ -7,22 +7,20 @@ import { editTodoAsync, fetchTodosByuserAsync, saveTodoAsync, selectTodos } from
 export default function Todo() {
   const dispatch = useDispatch()
 
-  const [Todo, setTodo] = useState({ task: "", desc: "", date: "", user: "", priority: "" });
+  const [Todo, setTodo] = useState({ task: "", desc: "", user: "", priority: "" });
   const [TodoArray, setTodoArray] = useState([]);
 
   const user = useSelector(selectLoggedInUser)
-
-  // const Todos = useSelector(selectTodos)
+  const Todos = useSelector(selectTodos)
 
   const getData = async () => {
     // dispatch(fetchTodosByuserAsync(user?.id))
 
-    let req = await fetch("http://localhost:8080/todos/" + user?.id);
-    let Todos = await req.json();
+    let response = await fetch("http://localhost:8080/todos/" + user?.id);
+    let temp = await response.json();
 
-    // console.log("dos : ", Todos)
-    if (Todos)
-      setTodoArray(Todos);
+    if (temp)
+      setTodoArray(temp);
   }
 
   useEffect(() => {
@@ -33,13 +31,13 @@ export default function Todo() {
   }, [])
 
   const saveTodo = async () => {
-    if (Todo.task.length > 2 && Todo.desc.length > 2 && Todo.date.length > 4) {
+    if (Todo.task.length > 2 && Todo.desc.length > 2) {
       const newTodo = { ...Todo, user: user?.id }
       setTodo([...TodoArray, { Todo }]);
 
       dispatch(saveTodoAsync(newTodo))
 
-      setTodo({ task: "", desc: "", date: "", priority: "" });
+      setTodo({ task: "", desc: "", priority: "" });
     }
     else
       alert("To save, Enter the task details !");
@@ -68,7 +66,7 @@ export default function Todo() {
 
     // dispatch(editTodoAsync({Todo, id}))
 
-    setTodo({ task: "", desc: "", date: "", priority: "" });
+    setTodo({ task: "", desc: "", priority: "" });
     setSaveFlag(true)
     // dispatch(fetchTodosByuserAsync(user?.id))
     getData()
@@ -107,6 +105,8 @@ export default function Todo() {
         headers: { 'content-type': 'application/json' }
       });
     const data = await response.json();
+    console.log("from todo.js handleStatus() : ", data);
+    
     getData()
   }
 
@@ -115,7 +115,6 @@ export default function Todo() {
     let req = await fetch("http://localhost:8080/todos/sort/" + user?.id);
     let Todos = await req.json();
 
-    // console.log("dos : ", Todos)
     if (Todos) {
       setTodoArray(Todos);
     }
@@ -148,17 +147,16 @@ export default function Todo() {
                 <input value={Todo.task} onChange={handleChange} type='text' placeholder='Enter the task-task' className='w-full rounded-lg mx-auto mt-3 p-2' name='task' id='task'></input>
                 <input value={Todo.desc} onChange={handleChange} type='text' placeholder='Enter the description' className='w-full rounded-lg mx-auto mt-3 p-2' name='desc' id='desc'></input>
                 <input value={Todo.priority} onChange={handleChange} type='text' placeholder='Enter the Priority' className='w-full rounded-lg mx-auto mt-3 p-2' name='priority' id='priority'></input>
-                <input value={Todo.date} onChange={handleChange} type='date' placeholder='Enter the due date' className='w-full rounded-lg mx-auto mt-3 p-2' name='date' id='date'></input>
               </div>
               <div className='flex justify-center gap-4'>
                 <button onClick={saveFlag ? saveTodo : editTodo} className='flex justify-center items-center w-28 p-2 mt-6 bg-slate-800 text-white hover:bg-white hover:text-black hover:font-bold border border-white hover:shadow-xl rounded-lg'>{saveFlag ? 'Save' : 'Edit'}</button>
-                <button onClick={e => { setSaveFlag(false); setShowAdd(false); getData(); setTodo({ task: "", desc: "", date: "", priority: "" }) }} className='flex justify-center items-center w-28 p-2 mt-6 bg-white text-black hover:font-bold border hover:shadow-xl rounded-lg'>Cancel</button>
+                <button onClick={e => { setSaveFlag(false); setShowAdd(false); getData(); setTodo({ task: "", desc: "", priority: "" }) }} className='flex justify-center items-center w-28 p-2 mt-6 bg-white text-black hover:font-bold border hover:shadow-xl rounded-lg'>Cancel</button>
               </div>
             </div>
           }
 
           {TodoArray.length === 0 && <div className='text-lg text-center p-6'>No Tasks to do</div>}
-
+          
           {TodoArray.length !== 0 &&
             TodoArray.map((item, index) => (
               <div key={index} className='flex flex-col lg:flex-row items-start lg:items-center px-4 bg-white my-4 w-[80%] mx-auto gap-3 rounded-xl shadow-xl text-wrap overflow-hidden group relative hover:scale-105 transition duration-300 ease-in-out lg:py-2'>
@@ -173,14 +171,14 @@ export default function Todo() {
                   />
                 </div>
                 <div className='lg:w-[55%] flex flex-col justify-start items-start'>
-                  <div className={`lg:p-2 overflow-hidden ${item.isDone ? 'text-gray-500 line-through' : ''}`}>Task : {item.task}</div>
-                  <div className={`lg:p-2 overflow-hidden ${item.isDone ? 'text-gray-500 line-through' : ''}`}>Description : {item.desc}</div>
+                  {/* <div className={`lg:p-2 overflow-hidden ${item.isDone ? 'text-gray-500 line-through' : ''}`}>Task : {item.task}</div> */}
+                  <div className={`lg:p-2 overflow-hidden`}>Task : {item.task}</div>
+                  <div className={`lg:p-2 overflow-hidden`}>Description : {item.desc}</div>
                 </div>
                 <div className='lg:w-[30%]'>
                   <div className='lg:p-2'>
-                    <span className={`py-1 px-4 overflow-hidden rounded-lg ${item.priority > 8 ? 'bg-red-600 text-red-200' : 'bg-blue-600 text-blue-200'} ${item.isDone ? 'line-through' : ''}`}>Priority : {item?.priority}</span>
+                    <span className={`py-1 px-4 overflow-hidden rounded-lg ${item.priority > 8 ? 'bg-red-600 text-red-200' : 'bg-blue-600 text-blue-200'}`}>Priority : {item?.priority}</span>
                   </div>
-                  <div className={`lg:p-2 overflow-hidden ${item.isDone ? 'text-gray-500 line-through' : ''}`}>Due-date : {item?.date.substr(0, item?.date.length - 14)}</div>
                 </div>
 
                 <div className='flex lg:flex-col justify-center items-center gap-2 p-3 mx-auto'>

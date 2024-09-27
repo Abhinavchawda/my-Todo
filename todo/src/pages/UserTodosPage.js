@@ -1,6 +1,6 @@
 import UserTodos from '../features/user/components/UserTodos';
 
-function UserOrdersPage() {
+function UserTodosPage() {
     return (
         <div>
             <UserTodos></UserTodos>
@@ -8,4 +8,4 @@ function UserOrdersPage() {
     );
 }
 
-export default UserOrdersPage;
+export default UserTodosPage;
