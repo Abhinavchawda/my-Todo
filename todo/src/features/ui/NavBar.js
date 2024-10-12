@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import {
     Disclosure,
     DisclosureButton,
@@ -255,7 +254,7 @@ export default function NavBar({ children }) {
                                 alt="</>"
                             />
                             my-Todo</h1>
-                        <button className="border rounded-xl p-2 my-2 bg-black text-white border-black" onClick={logout}>Log Out</button>
+                        <button className="rounded-2xl px-2 py-1 my-2 bg-slate-900 text-white" onClick={logout} >Log Out</button>
                     </div>
                 </header>
                 <main>

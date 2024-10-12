@@ -9,7 +9,7 @@ function Home(userDetails) {
         <div>
             <NavBar></NavBar>
 
-            <div className="w-full pl-5 font-semibold">
+            <div className="w-full pl-5 md:pl-40 mb-2 font-semibold">
                 <img className="rounded-xl" src={user.picture} alt="profile image" />
                 <div>{user.name}</div>
             </div>

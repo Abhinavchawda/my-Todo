@@ -1,23 +1,20 @@
-import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { selectTodos } from '../todoSlice';
+import { useSelector } from 'react-redux';
+
 import { selectUserInfo } from '../../user/userSlice';
 
-export default function CompletedTodo() {
-  const dispatch = useDispatch()
+import { TrashIcon } from '@heroicons/react/24/outline';
 
+export default function CompletedTodo() {
+  
   const [TodoArray, setTodoArray] = useState([]);
 
   const user = useSelector(selectUserInfo);
 
-  // const Todos = useSelector(selectTodos)
-
   const getData = async () => {
-    // dispatch(fetchTodosByuserAsync(user?.id))
 
-    let req = await fetch("http://localhost:8080/todos/" + user?.email);
-    let Todos = await req.json();
+    let response = await fetch("http://localhost:8080/todos/" + user?.email);
+    let Todos = await response.json();
 
     if (Todos)
       setTodoArray(Todos);
@@ -25,7 +22,7 @@ export default function CompletedTodo() {
 
   useEffect(() => {
     getData();
-  }, [])
+  }, []);
 
   const deleteTodo = async (id) => {
     // const flag = confirm("Are you sure to delete the task?");
@@ -40,7 +37,7 @@ export default function CompletedTodo() {
           headers: { 'content-type': 'application/json' }
         });
     }
-    getData()
+    getData();
   }
 
   const handleStatus = async (item) => {
@@ -50,8 +47,8 @@ export default function CompletedTodo() {
         body: JSON.stringify({ isDone: !item.isDone }),
         headers: { 'content-type': 'application/json' }
       });
-    const data = await response.json();
-    getData()
+
+    getData();
   }
 
   return (

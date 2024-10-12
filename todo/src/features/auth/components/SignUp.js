@@ -3,21 +3,21 @@ import { useForm, SubmitHandler } from "react-hook-form"
 import { Navigate } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectLoggedInUser, createUserAsync, } from '../authSlice';
+import { selectLoggedInUser, createUserAsync } from '../authSlice';
 import { Link } from 'react-router-dom';
 // import { devToolsEnhancer } from '@reduxjs/toolkit/dist/devtoolsExtension';
 
 export default function SignUp() {
   const dispatch = useDispatch();
 
-  const user = useSelector(selectLoggedInUser)
+  const user = useSelector(selectLoggedInUser);
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm()
+  } = useForm();
 
   const googleAuth = () => {
     window.open(
@@ -46,7 +46,8 @@ export default function SignUp() {
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         {/* noValidate se html khud form ko validat nhi karega */}
         {/* hum validate nhi karana chahte hai, coz hum apna custom error message show karana chahte h */}
-        <form noValidate className="space-y-6" onSubmit={handleSubmit((data) => {
+
+        {/* <form noValidate className="space-y-6" onSubmit={handleSubmit((data) => {
           dispatch(createUserAsync({
             email: data.email,
             password: data.password,
@@ -154,9 +155,9 @@ export default function SignUp() {
               Log in
             </button>
           </div>
-        </form>
+        </form> */}
 
-        <p className="mt-10 text-center text-sm text-gray-500">
+        <p className="mt-5 text-center text-sm text-gray-500">
           Already an account ?{' '}
           <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Log in
           </Link>
@@ -164,7 +165,7 @@ export default function SignUp() {
         <div>
           <button
             type="submit"
-            className="flex w-full justify-center rounded-md bg-slate-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="flex w-full justify-center rounded-md bg-indigo-700 px-3 py-2 font-semibold leading-6 text-white shadow-sm hover:bg-slate-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             onClick={googleAuth}
           >
             Sign up with Google
