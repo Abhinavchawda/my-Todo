@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const todoSchema = new mongoose.Schema({
-    user: { type: Schema.Types.ObjectId, ref: 'User', required: true},
+    // user: { type: Schema.Types.ObjectId, ref: 'User', required: true},
+    email: {type: String, require: true},
     task: {type: String, require: true},
     desc: {type: String, default: "Read the above task"},
     createdDate: {type: Date, require: true, default: Date.now},

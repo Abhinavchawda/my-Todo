@@ -9,26 +9,24 @@ import {
     MenuItems,
     Transition,
 } from '@headlessui/react'
-import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { BellIcon, HomeIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-// import { selectItems } from '../cart/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import { selectUserInfo } from '../user/userSlice'
+import { updateSearch } from './SearchSlice'
 
 const navigation = [
     { name: 'Home', link: '/', user: true, admin: true },
     { name: 'Completed Tasks', link: '/tasks-done', user: true },
     { name: 'About', link: '/about', user: true },
     { name: 'Contact', link: '/contact', user: true },
-
-    // { name: 'Orders', link: '/admin/orders', admin: true },
 ]
 
 const userNavigation = [
     { name: 'My Profile', link: '/profile' },
     // { name: 'My Tasks', link: '/user-todos' },
-    { name: 'Sign out', link: '/logout' },
+    { name: 'Log out', link: '/logout' },
 ]
 
 function classNames(...classes) {
@@ -40,18 +38,27 @@ export default function NavBar({ children }) {
     // const items = useSelector(selectItems)
     const user = useSelector(selectUserInfo)
 
+    const dispatch = useDispatch();
     const handleSearch = (e) => {
-        console.log(e.target.value)
+        dispatch(updateSearch(e.target.value));
+        console.log(e.target.value);
     }
+
+    const logout = () => {
+        window.open(
+            `${process.env.REACT_APP_API_URL}/auth/logout`,
+            "_self"
+        );
+    };
 
     return (
         <>
             {/*This example requires updating your template:
   
-          <html class="h-full bg-gray-100">
+          <html class="h-full bg-slate-100">
           <body class="h-full">*/}
             <div className="min-h-full">
-                <Disclosure as="nav" className="bg-gray-800">
+                <Disclosure as="nav" className="bg-slate-900">
                     {({ open }) => (
                         <>
                             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -70,14 +77,14 @@ export default function NavBar({ children }) {
                                             <div className="ml-10 flex items-baseline space-x-4">
                                                 {navigation.map((item) =>
                                                     // item[user.role] ?
-                                                      true ?
+                                                    true ?
                                                         (<Link
                                                             key={item.name}
                                                             to={item.link}
                                                             className={classNames(
                                                                 item.current
-                                                                    ? 'bg-gray-900 text-white'
-                                                                    : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                                    ? 'bg-slate-900 text-white'
+                                                                    : 'text-gray-300 hover:bg-slate-800 hover:text-white',
                                                                 'rounded-md px-3 py-2 text-sm font-medium flex items-center'
                                                             )}
                                                             aria-current={item.current ? 'page' : undefined}
@@ -91,9 +98,10 @@ export default function NavBar({ children }) {
                                     </div>
 
                                     <div className='flex items-center justify-center gap-5'>
-                                        <input className='rounded-xl bg-slate-800 text-white border hover:border-white w-[60vw] md:w-[37vw] p-2'
-                                            placeholder='Search Tasks'>
-                                            {/* onChange={e=>handleSearch(e)} */}
+                                        <input className='rounded-xl bg-slate-900 text-white border hover:border-white w-[60vw] md:w-[37vw] p-2'
+                                            placeholder='Search Tasks'
+                                            onChange={e => handleSearch(e)}
+                                        >
                                         </input>
                                     </div>
 
@@ -102,7 +110,7 @@ export default function NavBar({ children }) {
                                             <Link to='/'>
                                                 <button
                                                     type="button"
-                                                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                                    className="relative rounded-full bg-slate-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                                 >
                                                     <span className="absolute -inset-1.5" ></span>
                                                     <BellIcon className="h-6 w-6 text-white" aria-hidden="true" />
@@ -115,7 +123,7 @@ export default function NavBar({ children }) {
                                             {/* Profile dropdown */}
                                             <Menu as="div" className="relative ml-3">
                                                 <div>
-                                                    <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                                    <MenuButton className="relative flex max-w-xs items-center rounded-full bg-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                                         <span className="absolute -inset-1.5" />
                                                         <span className="sr-only">Open user menu</span>
                                                         <img className="h-8 w-8 rounded-full" src="/UserImageLogo.png" alt="" />
@@ -136,7 +144,7 @@ export default function NavBar({ children }) {
                                                                     <Link
                                                                         to={item.link}
                                                                         className={classNames(
-                                                                            focus ? 'bg-gray-100' : '',
+                                                                            focus ? 'bg-slate-100' : '',
                                                                             'block px-4 py-2 text-sm text-gray-700'
                                                                         )}
                                                                     >
@@ -152,7 +160,7 @@ export default function NavBar({ children }) {
                                     </div>
                                     <div className="-mr-2 flex md:hidden">
                                         {/* Mobile menu button */}
-                                        <DisclosureButton className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                        <DisclosureButton className="relative inline-flex items-center justify-center rounded-md bg-slate-800 p-2 text-gray-400 hover:bg-slate-800 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                                             <span className="absolute -inset-0.5" />
                                             <span className="sr-only">Open main menu</span>
                                             {open ? (
@@ -174,17 +182,17 @@ export default function NavBar({ children }) {
                                                 to={item.link}
                                             >
                                                 <DisclosureButton
-                                                key={item.name}
-                                                as="a"
-                                                className={classNames(
-                                                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'block rounded-md px-3 py-2 text-base font-medium'
-                                                )}
-                                                aria-current={item.current ? 'page' : undefined}
-                                            >
-                                                {item.name === "Home" ? <HomeIcon className='h-6 w-6'></HomeIcon> : item.name}
-                                            </DisclosureButton>
-                                                </Link>
+                                                    key={item.name}
+                                                    as="a"
+                                                    className={classNames(
+                                                        item.current ? 'bg-slate-900 text-white' : 'text-gray-300 hover:bg-slate-800 hover:text-white',
+                                                        'block rounded-md px-3 py-2 text-base font-medium'
+                                                    )}
+                                                    aria-current={item.current ? 'page' : undefined}
+                                                >
+                                                    {item.name === "Home" ? <HomeIcon className='h-6 w-6'></HomeIcon> : item.name}
+                                                </DisclosureButton>
+                                            </Link>
                                             ) : null
                                     )}
                                 </div>
@@ -200,10 +208,10 @@ export default function NavBar({ children }) {
                                         <Link to='/cart'>
                                             <button
                                                 type="button"
-                                                className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                                className="relative ml-auto flex-shrink-0 rounded-full bg-slate-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                             >
                                                 <span className="absolute -inset-1.5" />
-                                                <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                                                <BellIcon className="h-6 w-6" aria-hidden="true" />
                                             </button>
                                         </Link>
                                         {/* {items.length > 0 && <span className='inline-flex items-center rounded-lg bg-blue-200 text-blue-700 mb-7 -ml-3 px-2 py-1 text-xs z-10 font-bold'>
@@ -216,13 +224,13 @@ export default function NavBar({ children }) {
                                             <DisclosureButton
                                                 key={item.name}
                                                 as="a"
-                                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                                                className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-slate-800 hover:text-white"
                                             >
                                                 {({ focus }) => (
                                                     <Link
                                                         to={item.link}
                                                         className={classNames(
-                                                            focus ? 'bg-gray-100' : '',
+                                                            focus ? 'bg-slate-100' : '',
                                                             'block px-4 py-2 text-sm text-gray-200'
                                                         )}
                                                     >
@@ -239,7 +247,7 @@ export default function NavBar({ children }) {
                 </Disclosure>
 
                 <header className="bg-white shadow">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex justify-between">
                         <h1 className="text-3xl font-bold tracking-tight text-gray-900 flex items-center gap-2">
                             <img
                                 className="h-16 w-16"
@@ -247,6 +255,7 @@ export default function NavBar({ children }) {
                                 alt="</>"
                             />
                             my-Todo</h1>
+                        <button className="border rounded-xl p-2 my-2 bg-black text-white border-black" onClick={logout}>Log Out</button>
                     </div>
                 </header>
                 <main>

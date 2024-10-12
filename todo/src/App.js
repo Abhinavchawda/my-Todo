@@ -1,78 +1,63 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios"
+import { useDispatch } from 'react-redux';
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from './pages/Home';
-import NavBar from './features/ui/NavBar';
-import { createBrowserRouter, RouterProvider, Route, Link, } from "react-router-dom";
-import LogOut from './features/auth/components/LogOut';
 import PageNotFound from './pages/404';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
 import UserProfilePage from './pages/UserProfilePage';
-import Protected from './features/auth/components/Protected';
-import UserTodosPage from './pages/UserTodosPage';
-import { useDispatch } from 'react-redux';
-import { fetchLoggedInUserAsync } from './features/user/userSlice';
 import CompletedTodoPage from './pages/CompletedTodoPage';
 import About from './pages/AboutMePage';
 import Contact from './pages/ContactPage';
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element:
-      <div>
-        <Protected><Home></Home></Protected>,
-      </div>
-  },
-  {
-    path: "/user-todos",
-    element:
-      <div>
-        <Protected><NavBar></NavBar><UserTodosPage></UserTodosPage></Protected>,
-      </div>
-  },
-  {
-    path: "/login",
-    element: <LoginPage></LoginPage>,
-  },
-  {
-    path: "/signup",
-    element: <SignUpPage></SignUpPage>,
-  },
-  {
-    path: "/tasks-done",
-    element: <Protected><CompletedTodoPage></CompletedTodoPage></Protected>,
-  },
-  {
-    path: "/about",
-    element: <Protected><About></About></Protected>,
-  },
-  {
-    path: "/contact",
-    element: <Protected><Contact></Contact></Protected>,
-  },
-  {
-    path: "/profile",
-    element: <UserProfilePage></UserProfilePage>,
-  },
-  {
-    path: "/logout",
-    element: <LogOut></LogOut>,
-  },
-  {
-    path: "*",
-    element: <PageNotFound></PageNotFound>,
-  },
-]);
+import { setUserDetails } from "./features/user/userSlice"
 
 function App() {
-  // const dispatch = useDispatch();
-  // useEffect(()=>{
-  //   dispatch(fetchLoggedInUserAsync())
-  // }, [])
-  
+  const dispatch = useDispatch();
+
+  const [user, setUser] = useState(null);
+
+  const getUser = async () => {
+    try {
+      const url = `${process.env.REACT_APP_API_URL}/auth/login/success`;
+      const { data } = await axios.get(url, { withCredentials: true });
+      setUser(data.user._json);
+      dispatch(setUserDetails(data.user._json));
+    }
+    catch (err) {
+      console.log("Error in App.js in getUser() : ", err);
+    }
+  }
+
+  useEffect(() => {
+    getUser();
+  }, [])
+
   return (
-    <div>
-      <RouterProvider router={router} />
+    <div className='font-lora'>
+      <Routes>
+        <Route path='/'
+          element={user ? <Home user={user} /> : <Navigate to='/login' />}
+        />
+
+        <Route path='/login'
+          element={user ? <Navigate to='/' /> : <LoginPage/>}
+        />
+
+        <Route path='/signup'
+          element={user ? <Navigate to='/' /> : <SignUpPage/>}
+        />
+
+        <Route path="/tasks-done" element={<CompletedTodoPage />} />
+
+        <Route path="/profile" element={<UserProfilePage/>} />
+
+        <Route path="/about" element={<About/>} />
+
+        <Route path="/contact" element={<Contact/>} />
+
+        <Route path="*" element={<PageNotFound/>} />
+      </Routes>
     </div>
   );
 }

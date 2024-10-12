@@ -10,14 +10,22 @@ export default function Login() {
   const user = useSelector(selectLoggedInUser)
   const error = useSelector(selectError)
 
-  const { register, handleSubmit, watch, formState: { errors },  } = useForm()
+  const { register, handleSubmit, watch, formState: { errors }, } = useForm()
+
+  const googleAuth = () => {
+    window.open(
+      `${process.env.REACT_APP_API_URL}/auth/google/callback`,
+      "_self"
+      //self for showing google account prompt on the same page
+    );
+  };
 
   return (
     <>
       {user && <Navigate to='/' replace={true}></Navigate>}
-      
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-          
+
 
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -32,10 +40,10 @@ export default function Login() {
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form noValidate className="space-y-6" onSubmit={handleSubmit((data) => {
-          dispatch(checkUserAsync({email: data.email, password: data.password}))
-          console.log(data);
-        })} 
-          action='#' method='POST'
+            dispatch(checkUserAsync({ email: data.email, password: data.password }))
+            console.log(data);
+          })}
+            action='#' method='POST'
           >
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
@@ -99,6 +107,16 @@ export default function Login() {
               Create account
             </Link>
           </p>
+
+          <div>
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-slate-400 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-slate-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              onClick={googleAuth}
+            >
+              Log in with Google
+            </button>
+          </div>
         </div>
       </div>
     </>

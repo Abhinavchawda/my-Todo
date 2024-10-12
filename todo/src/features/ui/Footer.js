@@ -2,8 +2,8 @@ import React from "react";
 
 export default function Footer() {
     return (
-      <footer className="bg-slate-800 text-white">
-        <div className="flex justify-center items-center bg-slate-700 py-3">
+      <footer className="bg-slate-900 text-white">
+        <div className="flex justify-center items-center border-y border-white py-3">
           <a href="#" className="text-xl hover:text-gray-300">Back to Top</a>
         </div>
   

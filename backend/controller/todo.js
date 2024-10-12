@@ -4,7 +4,7 @@ const { todo } = require("../models/todo")
 exports.fetchTodosByUser = async (req, res) => {
     const { id } = req.params
     try {
-        const todos = await todo.find({ user: id})
+        const todos = await todo.find({ email: id})
         res.status(200).json(todos);
     }
     catch (err) {
@@ -14,7 +14,7 @@ exports.fetchTodosByUser = async (req, res) => {
 
 exports.fetchTodosByFilter = async (req, res) => {
     const { id } = req.params
-    let query = todo.find({ user: id}).sort( { priority: -1} )
+    let query = todo.find({ email: id}).sort( { priority: -1} )
     try {
         const todos = await query
         res.status(200).json(todos);
@@ -28,7 +28,7 @@ exports.addTodo = async (req, res) => {
     const temp = new todo (req.body);
     try {
         const doc = await temp.save();
-        res.status(201).json(doc)
+        res.status(201).json(doc);
     }
     catch (err) {
         res.status(400).json(err)

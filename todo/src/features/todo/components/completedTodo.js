@@ -1,22 +1,22 @@
 import { TrashIcon } from '@heroicons/react/24/outline';
 import React, { useState, useEffect } from 'react'
-import { selectLoggedInUser } from '../../auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTodos } from '../todoSlice';
+import { selectUserInfo } from '../../user/userSlice';
 
 export default function CompletedTodo() {
   const dispatch = useDispatch()
 
   const [TodoArray, setTodoArray] = useState([]);
 
-  const user = useSelector(selectLoggedInUser)
+  const user = useSelector(selectUserInfo);
 
   // const Todos = useSelector(selectTodos)
 
   const getData = async () => {
     // dispatch(fetchTodosByuserAsync(user?.id))
 
-    let req = await fetch("http://localhost:8080/todos/" + user?.id);
+    let req = await fetch("http://localhost:8080/todos/" + user?.email);
     let Todos = await req.json();
 
     if (Todos)
@@ -66,7 +66,7 @@ export default function CompletedTodo() {
             <div key={index} className='flex items-center justify-center'>
 
               {item.isDone &&
-                <div className='flex flex-col lg:flex-row items-start lg:items-center px-4 bg-white my-4 w-[80%] mx-auto gap-3 rounded-xl shadow-xl text-wrap overflow-hidden group relative hover:scale-105 transition duration-300 ease-in-out lg:py-2'>
+                <div className='flex flex-col lg:flex-row items-start lg:items-center px-4 bg-white my-4 w-[80%] mx-auto gap-3 rounded-xl shadow-xl text-wrap overflow-hidden group relative hover:scale-[1.02] transition duration-300 ease-in-out lg:py-2'>
                   <div className='pt-4 lg:p-4'>
                     <input
                       id={item.id}
@@ -74,11 +74,11 @@ export default function CompletedTodo() {
                       value={item.isDone}
                       onChange={(e) => { handleStatus(item) }}
                       defaultChecked={item.isDone}
-                      className="h-4 w-4 rounded-xl border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      className="h-5 w-5 rounded-xl border-gray-300 text-indigo-700 focus:ring-indigo-600"
                     />
                   </div>
                   <div className='lg:w-[55%] flex flex-col justify-start items-start'>
-                    <div className={`lg:p-2 overflow-hidden`}>Task : {item.task}</div>
+                    <div className={`lg:p-2 overflow-hidden text-2xl`}>{item.task}</div>
                     <div className={`lg:p-2 overflow-hidden`}>Description : {item.desc}</div>
                   </div>
                   <div className='lg:w-[30%]'>
@@ -90,7 +90,7 @@ export default function CompletedTodo() {
 
                   <div className='flex lg:flex-col justify-center items-center gap-2 p-3 mx-auto'>
                     <div>
-                      <TrashIcon className='h-5 w-5 hover:scale-125 cursor-pointer transition-all duration-300'
+                      <TrashIcon className='h-8 w-8 hover:scale-110 cursor-pointer transition-all duration-300 text-red-800 bg-[rgb(253,200,200)] rounded-lg p-1'
                         type='button'
                         onClick={() => { deleteTodo(item.id) }} >
                       </TrashIcon>
