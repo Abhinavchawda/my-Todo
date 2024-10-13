@@ -4,8 +4,8 @@ const { fetchTodosByUser, addTodo, updateTodo, deleteTodo, fetchTodosByFilter } 
 const router = express.Router();
 
 //  '/todos' is already included in base path
-router.get('/:id', fetchTodosByUser)
-    .get('/sort/:id', fetchTodosByFilter)
+router.get('/:email', fetchTodosByUser)
+    .get('/sort/:email', fetchTodosByFilter)
     .post('/', addTodo)
     .patch('/:id', updateTodo)
     .delete('/:id', deleteTodo);
